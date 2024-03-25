@@ -4,31 +4,31 @@ export type SDL_AudioFormat = u16;
 export type SDL_AudioCallback = *fn(userdata: *opaque, stream: *u8, _len: int) void;
 
 export type SDL_AudioSpec = struct {
-    freq:     int,
-    format:   SDL_AudioFormat,
-    channels: u8,
-    silence:  u8,
-    samples:  u16,
-    padding:  u16,
-    _size:    u32,
-    callback: SDL_AudioCallback,
-    userdata: *opaque,
+	freq:     int,
+	format:   SDL_AudioFormat,
+	channels: u8,
+	silence:  u8,
+	samples:  u16,
+	padding:  u16,
+	_size:    u32,
+	callback: SDL_AudioCallback,
+	userdata: *opaque,
 };
 
 
 
 export type SDL_AudioCVT = struct {
-    needed:       int,
-    src_format:   SDL_AudioFormat,
-    dst_format:   SDL_AudioFormat,
-    rate_incr:    f64,
-    buf:          *u8,
-    _len:         int,
-    len_cvt:      int,
-    len_mult:     int,
-    len_ratio:    f64,
-    filters:      [9 + 1]SDL_AudioFilter,
-    filter_index: int,
+	needed:       int,
+	src_format:   SDL_AudioFormat,
+	dst_format:   SDL_AudioFormat,
+	rate_incr:    f64,
+	buf:          *u8,
+	_len:         int,
+	len_cvt:      int,
+	len_mult:     int,
+	len_ratio:    f64,
+	filters:      [9 + 1]SDL_AudioFilter,
+	filter_index: int,
 };
 
 export type SDL_AudioFilter = *fn(cvt: *SDL_AudioCVT, format: SDL_AudioFormat) void;
@@ -49,9 +49,9 @@ export @symbol("SDL_GetDefaultAudioInfo" ) fn GetDefaultAudioInfo(name: **c::cha
 export @symbol("SDL_OpenAudioDevice"     ) fn OpenAudioDevice(device: const*c::char, iscapture: int, desired: const*SDL_AudioSpec, obtained: *SDL_AudioSpec, allowed_changes: int) SDL_AudioDeviceID;
 
 export type SDL_AudioStatus = enum {
-    SDL_AUDIO_STOPPED = 0,
-    SDL_AUDIO_PLAYING,
-    SDL_AUDIO_PAUSED,
+	SDL_AUDIO_STOPPED = 0,
+	SDL_AUDIO_PLAYING,
+	SDL_AUDIO_PAUSED,
 };
 
 export @symbol("SDL_GetAudioStatus"       ) fn GetAudioStatus() SDL_AudioStatus;

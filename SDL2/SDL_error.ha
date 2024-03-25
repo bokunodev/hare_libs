@@ -1,12 +1,12 @@
 use types::c;
 
 export type SDL_errorcode = enum {
-    SDL_ENOMEM,
-    SDL_EFREAD,
-    SDL_EFWRITE,
-    SDL_EFSEEK,
-    SDL_UNSUPPORTED,
-    SDL_LASTERROR,
+	SDL_ENOMEM,
+	SDL_EFREAD,
+	SDL_EFWRITE,
+	SDL_EFSEEK,
+	SDL_UNSUPPORTED,
+	SDL_LASTERROR,
 };
 
 
