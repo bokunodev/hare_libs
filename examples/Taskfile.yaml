@@ -1,0 +1,7 @@
+version: 3
+
+tasks:
+    bgx:
+        dir: 'bgx'
+        cmds:
+            - hare build -lX11 -lSDL2 -lSDL2_image .
