@@ -30,9 +30,14 @@ export fn main() void = {
 		return;
 	};
 
+
+	fmt::println("simple fmt::println:", opts.opts[0].0, opts.opts[0].1)!; // works fine
+
+	for(let opt .. opts.opts) fmt::println("fmt::println with foreach loop:", opt.0, opt.1)!; // works fine
+
 	let delay:u32 = 2000;
 	if(len(opts.opts) > 0) {
-		delay = strconv::stou32(opts.opts[0].1)!;
+		delay = strconv::stou32(opts.opts[0].1)!; // error SIGSEGV
 	};
 
 	//const filepath = c::fromstr("home/user/Public/projects/hare_libs/examples/bgx/image.gif");
