@@ -1,2 +1,1 @@
-# hare_sdl2
-SDL2 header files translated to Hare programming language
+# Collection of C library binding for the Hare programming language.
