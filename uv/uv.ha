@@ -140,16 +140,15 @@ export type uv__queue = struct {
 	prev: *uv__queue,
 };
 
-
 export type uv_loop_t = struct {
-	data:           *void,
+	data:           *opaque,
 	active_handles: uint,
 	handle_queue:   uv__queue,
 	active_reqs: union {
-		unused: *void,
+		unused: *opaque,
 		count:  uint,
 	},
-	internal_fields:  *void,
+	internal_fields:  *opaque,
 	stop_flag:        uint,
 	flags:            u64,
 	backend_fd:       int,
@@ -172,7 +171,7 @@ export type uv_loop_t = struct {
 	async_io_watcher: uv__io_t,
 	async_wfd:        int,
 	timer_heap: struct {
-		min:   *void,
+		min:   *opaque,
 		nelts: uint,
 	},
 	timer_counter:        u64,
@@ -182,42 +181,43 @@ export type uv_loop_t = struct {
 	child_watcher:        uv_signal_t,
 	emfile_fd:            int,
 	inotify_read_watcher: uv__io_t,
-	inotify_watchers:     *void,
+	inotify_watchers:     *opaque,
 	inotify_fd:           int,
 };
 
 export type uv_handle_t = struct {
-	data:         *void,
+	data:         *opaque,
 	loop:         *uv_loop_t,
 	_type:        uv_handle_type,
 	close_cb:     uv_close_cb,
 	handle_queue: uv__queue,
 	u: union {
 		fd:       int,
-		reserved: [4]*void,
+		reserved: [4]*opaque,
 	},
 	next_closing: *uv_handle_t,
 	flags:        uint,
 };
 
 export type DIR = opaque;
+export type uv__io_t = opaque;
 
 export type uv_dir_t = struct {
 	dirents:  *uv_dirent_t,
 	nentries: size,
-	reserved: [4]*void,
+	reserved: [4]*opaque,
 	dir:      *DIR,
 };
 
 export type uv_stream_t = struct {
-	data:         *void,
+	data:         *opaque,
 	loop:         *uv_loop_t,
 	_type:        uv_handle_type,
 	close_cb:     close_cb,
 	handle_queue: uv__queue,
 	u: union {
 		fd:       int,
-		reserved: [4]*void,
+		reserved: [4]*opaque,
 	},
 	next_closing:          *uv_handle_t,
 	flags:                 uint,
@@ -232,18 +232,18 @@ export type uv_stream_t = struct {
 	connection_cb:         connection_cb,
 	delayed_error:         int,
 	accepted_fd:           int,
-	queued_fds:            *void,
+	queued_fds:            *opaque,
 };
 
 export type uv_tcp_t = struct {
-	data:         *void,
+	data:         *opaque,
 	loop:         *uv_loop_t,
 	_type:        uv_handle_type,
 	close_cb:     close_cb,
 	handle_queue: uv__queue,
 	u: union {
 		fd:       int;
-		reserved: [4]*void;
+		reserved: [4]*opaque;
 	},
 	next_closing:          *uv_handle_t,
 	flags:                 uint,
@@ -258,18 +258,18 @@ export type uv_tcp_t = struct {
 	connection_cb:         connection_cb,
 	delayed_error:         int,
 	accepted_fd:           int,
-	queued_fds:            *void,
+	queued_fds:            *opaque,
   };
 
 export type uv_udp_t = struct {
-	data:         *void,
+	data:         *opaque,
 	loop:         *uv_loop_t,
 	_type:        uv_handle_type,
 	close_cb:     close_cb,
 	handle_queue: uv__queue,
 	u: union {
 		fd:       int;
-		reserved: [4]*void;
+		reserved: [4]*opaque;
 	},
 	next_closing:          *uv_handle_t;
 	flags:                 uint;
@@ -283,14 +283,14 @@ export type uv_udp_t = struct {
   };
 
 export type uv_pipe_t = struct {
-	data:         *void,
+	data:         *opaque,
 	loop:         *uv_loop_t,
 	_type:        uv_handle_type,
 	close_cb:     close_cb,
 	handle_queue: uv__queue,
 	u: union {
 		fd:       int,
-		reserved: [4]*void,
+		reserved: [4]*opaque,
 	},
 	next_closing:          *uv_handle_t,
 	flags:                 uint,
@@ -305,7 +305,7 @@ export type uv_pipe_t = struct {
 	connection_cb:         connection_cb,
 	delayed_error:         int,
 	accepted_fd:           int,
-	queued_fds:            *void,
+	queued_fds:            *opaque,
 	ipc:                   int,
 	pipe_fname:            const*char,
 };
