@@ -1,3 +1,4 @@
+use types::c;
 use fmt;
 use uv;
 
@@ -8,8 +9,8 @@ export type EventLoop = struct{
 };
 
 fn destroy(ev: *EventLoop) void = {
-	uv::loop_close(ev.loop);
 	uv::stop(ev.loop);
+	uv::loop_close(ev.loop);
 	free(ev.loop);
 };
 
@@ -37,14 +38,14 @@ fn async_wrapper(async: *uv::uv_async_t) void = {
 fn run_async(ev: *EventLoop, func: AsyncFunc, data: nullable *opaque) void = {
 	fmt::println("[async] run_async")!;
 	let async = uv::calloc(uv::sizeof_uv_async_t()):*uv::uv_async_t;
-	uv::async_init(ev.loop, async, &async_wrapper);
+	abort_on_err(uv::async_init(ev.loop, async, &async_wrapper));
 	
 	let task = alloc(Task{func = func, data = data});
 
 	let async_handle = async:*uv::uv_handle_t;
 	uv::handle_set_data(async_handle, task);
 
-	uv::async_send(async);
+	abort_on_err(uv::async_send(async));
 };
 
 export fn new() *EventLoop = {
@@ -54,8 +55,12 @@ export fn new() *EventLoop = {
 		run_async = &run_async,
 	});
 
-	uv::loop_init(ev.loop);
-	uv::run(ev.loop, uv::uv_run_mode::UV_RUN_DEFAULT);
+	abort_on_err(uv::loop_init(ev.loop));
+	abort_on_err(uv::run(ev.loop, uv::uv_run_mode::UV_RUN_DEFAULT));
 
 	return ev;
+};
+
+fn abort_on_err(n: int) void = {
+	if(n<0) abort(c::tostr_unsafe(uv::strerror(n)));
 };
