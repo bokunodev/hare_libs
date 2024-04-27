@@ -5,3 +5,8 @@ tasks:
     dir: "./uv"
     cmds:
       - cc -c uv.c
+
+  default:
+    deps: [libuv]
+    cmds:
+      - hare build -o main -luv .

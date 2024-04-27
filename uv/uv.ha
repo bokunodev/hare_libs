@@ -13,7 +13,7 @@ use rt::{
 	socklen_t,
 };
 
-export @symbol("c_alloc") fn c_alloc(s: size) *opaque;
+export @symbol("c_alloc") fn calloc(s: size) *opaque;
 
 export type uv_buf_t = struct {
 	base: *char,
